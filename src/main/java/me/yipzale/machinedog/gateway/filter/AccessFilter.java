@@ -89,7 +89,8 @@ public class AccessFilter extends ZuulFilter {
         }
 
         public void configure() {
-            matcherConfigures.add(new RequestMatcherConfigure("/api/article/**", "POST"));
+            matcherConfigures.add(new RequestMatcherConfigure("/blog/articles/**", "POST"));
+            matcherConfigures.add(new RequestMatcherConfigure("/blog/articles", "POST"));
         }
 
         public boolean match(HttpServletRequest request) {

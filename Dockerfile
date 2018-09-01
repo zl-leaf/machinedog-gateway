@@ -1,9 +1,9 @@
 FROM maven
 
-VOLUME ["/opt/htdoc/gateway"]
-
-WORKDIR /opt/htdoc/gateway
+RUN mkdir -p /opt/htdoc/app
+ADD ./target/gateway.jar /opt/htdoc/app/
+WORKDIR /opt/htdoc/app
 
 EXPOSE 8080
 
-CMD mvn install && java -jar ./target/gateway.jar
+CMD java -jar ./gateway.jar

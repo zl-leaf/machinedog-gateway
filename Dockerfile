@@ -1,6 +1,6 @@
 FROM maven
 
-RUN mkdir -p /opt/htdoc/app
+RUN mkdir -p /opt/app
 ADD ./target/gateway.jar /opt/app/
 WORKDIR /opt/app
 

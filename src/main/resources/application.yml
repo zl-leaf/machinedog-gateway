@@ -6,7 +6,33 @@ spring:
     name: machinedog-gateway
 
 zuul:
+  add-host-header: true
   routes:
+    # login and logout
+    login:
+      stripPrefix: false
+      path: /security/login
+      serviceId: machinedog-security
+      sensitive-headers:
+    login-check:
+      stripPrefix: false
+      path: /security/check
+      serviceId: machinedog-security
+      sensitive-headers:
+    logout:
+      stripPrefix: false
+      path: /security/logout
+      serviceId: machinedog-security
+      sensitive-headers:
+
+    # oauth2
+    oauth:
+      stripPrefix: false
+      path: /oauth/**
+      serviceId: machinedog-security
+      sensitive-headers:
+
+    # business
     blog:
       path: /blog/**
       serviceId: water-article
@@ -20,6 +46,18 @@ eureka:
     serviceUrl:
       defaultZone: http://machinedog.yipzale.me:1111/eureka/
     registryFetchIntervalSeconds: 5
+
+security:
+  basic:
+    enabled: false
+  oauth2:
+    client:
+      access-token-uri: http://security:8080/oauth/token
+      user-authorization-uri: http://security:8080/oauth/authorize
+      client-id: m1
+    resource:
+      user-info-uri: http://security:8080/security/info
+      prefer-token-info: false
 
 ribbon:
   ServerListRefreshInterval: 5000
